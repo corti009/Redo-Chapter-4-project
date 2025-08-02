@@ -1,57 +1,112 @@
 #include <iostream>
 #include <iomanip>
 #include <limits>
-#include <cmath>
+
+const double PI = 3.14159;
 
 int main() {
-    double packageWeight;
-    double shippingDistance;
-    double ratePer500Miles;
-    double totalShippingCharges;
-    int num500MileSegments;
+    int choice;
+    double radius, length, width, base, height, area;
 
-    while (true) {
-        std::cout << "Enter weight of package in kilograms: ";
-        std::cin >> packageWeight;
+    do {
+        std::cout << "\nGeometry Calculator\n";
+        std::cout << "1. Calculate the Area of a Circle\n";
+        std::cout << "2. Calculate the Area of a Rectangle\n";
+        std::cout << "3. Calculate the Area of a Triangle\n";
+        std::cout << "4. Quit\n";
+        std::cout << "Enter your choice (1-4): ";
+        std::cin >> choice;
 
-        if (std::cin.fail() || packageWeight <= 0 || packageWeight > 20) {
-            std::cout << "Invalid weight. Please enter a value greater than 0 and up to 20 kg.\n";
+        if (std::cin.fail() || choice < 1 || choice > 4) {
+            std::cout << "Invalid choice. Please enter a number between 1 and 4.\n";
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        } else {
-            break;
+            continue;
         }
-    }
 
-    while (true) {
-        std::cout << "Enter distance to be shipped in miles: ";
-        std::cin >> shippingDistance;
+        switch (choice) {
+            case 1:
+                while (true) {
+                    std::cout << "Enter the radius of the circle: ";
+                    std::cin >> radius;
+                    if (std::cin.fail() || radius < 0) {
+                        std::cout << "Invalid radius. Please enter a non-negative number.\n";
+                        std::cin.clear();
+                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
+                    } else {
+                        break;
+                    }
+                }
+                area = PI * radius * radius;
+                std::cout << std::fixed << std::setprecision(2);
+                std::cout << "Area of the circle: " << area << std::endl;
+                break;
 
-        if (std::cin.fail() || shippingDistance < 10 || shippingDistance > 3000) {
-            std::cout << "Invalid distance. Please enter a value between 10 and 3000 miles.\n";
-            std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        } else {
-            break;
+            case 2:
+                while (true) {
+                    std::cout << "Enter the length of the rectangle: ";
+                    std::cin >> length;
+                    if (std::cin.fail() || length < 0) {
+                        std::cout << "Invalid length. Please enter a non-negative number.\n";
+                        std::cin.clear();
+                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                    } else {
+                        break;
+                    }
+                }
+                while (true) {
+                    std::cout << "Enter the width of the rectangle: ";
+                    std::cin >> width;
+                    if (std::cin.fail() || width < 0) {
+                        std::cout << "Invalid width. Please enter a non-negative number.\n";
+                        std::cin.clear();
+                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                    } else {
+                        break;
+                    }
+                }
+                area = length * width;
+                std::cout << std::fixed << std::setprecision(2);
+                std::cout << "Area of the rectangle: " << area << std::endl;
+                break;
+
+            case 3:
+                while (true) {
+                    std::cout << "Enter the base of the triangle: ";
+                    std::cin >> base;
+                    if (std::cin.fail() || base < 0) {
+                        std::cout << "Invalid base. Please enter a non-negative number.\n";
+                        std::cin.clear();
+                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                    } else {
+                        break;
+                    }
+                }
+                while (true) {
+                    std::cout << "Enter the height of the triangle: ";
+                    std::cin >> height;
+                    if (std::cin.fail() || height < 0) {
+                        std::cout << "Invalid height. Please enter a non-negative number.\n";
+                        std::cin.clear();
+                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                    } else {
+                        break;
+                    }
+                }
+                area = base * height * 0.5;
+                std::cout << std::fixed << std::setprecision(2);
+                std::cout << "Area of the triangle: " << area << std::endl;
+                break;
+
+            case 4:
+                std::cout << "Exiting program. Goodbye!\n";
+                break;
+
+            default:
+                std::cout << "An unexpected error occurred.\n";
+                break;
         }
-    }
-
-    if (packageWeight <= 2) {
-        ratePer500Miles = 1.10;
-    } else if (packageWeight <= 6) {
-        ratePer500Miles = 2.20;
-    } else if (packageWeight <= 10) {
-        ratePer500Miles = 3.70;
-    } else {
-        ratePer500Miles = 4.80;
-    }
-
-    num500MileSegments = static_cast<int>(std::ceil(shippingDistance / 500.0));
-
-    totalShippingCharges = ratePer500Miles * num500MileSegments;
-
-    std::cout << std::fixed << std::setprecision(2);
-    std::cout << "Total shipping charges: $" << totalShippingCharges << std::endl;
+    } while (choice != 4);
 
     return 0;
 }
